@@ -7,8 +7,8 @@ class TrainOptions():
     def initialize(self):
         parser = argparse.ArgumentParser( description="training script for DA" )        
         # task settings
-        parser.add_argument("-dataset", type=str, default='INRIA', help="used dataset", 
-                                choices=['INRIA', 'INRIA/Austin', 'INRIA/Vienna', 'INRIA/Kitsap', 'INRIA/Tyrol', 'INRIA/Chicago', \
+        parser.add_argument("-dataset", type=str, default='Massachusetts_Buildings', help="used dataset", 
+                                choices=['INRIA/Austin', 'INRIA/Vienna', 'INRIA/Kitsap', 'INRIA/Tyrol', 'INRIA/Chicago', \
                                          'GF7_Buildings', 'GF7_Buildings/Chongqing', 'GF7_Buildings/Guangzhou', 'GF7_Buildings/Lanzhou', \
                                          'GF7_Buildings/Ningbo', 'GF7_Buildings/Shenzhen', 'GF7_Buildings/Tianjin', \
                                          'Massachusetts_Buildings'])

@@ -44,22 +44,10 @@ def main():
     train_l_loader, train_u_loader, val_loader = CreateTrainDataLoader(args) 
     algorithm = create_algorithm(args, device)
 
-    if 'Massachusetts_Buildings' in args.dataset: 
-        algorithm.lamda = 0.2
-    elif 'Shenzhen' in args.dataset:  
-        algorithm.lamda = 0.2
-    elif 'Tyrol' in args.dataset: 
-        algorithm.lamda = 0.4
-    elif 'Vienna' in args.dataset:  
-        algorithm.lamda = 0.4 
-    elif 'Chongqing' in args.dataset:  
-        algorithm.lamda = 0.6
-    elif 'Kitsap' in args.dataset: 
-        algorithm.lamda = 1.2
-
     start_iter = 0
     save_checkpoint_path = os.path.join(args.save_dir, '%s_p-%s_%s_%s' % \
-                           (args.dataset.replace('/', '_'), args.percent, args.algorithm, algorithm.lamda) + '.pth')
+                           (args.dataset.replace('/', '_'), args.percent, 
+                            args.algorithm, algorithm.lamda) + '.pth')
     if os.path.exists(save_checkpoint_path) and args.restore:
         print ('loading checkpoint from {}'.format(save_checkpoint_path))
         resume = torch.load(save_checkpoint_path)
@@ -84,6 +72,7 @@ def main():
         image_l = image_l.to(device).detach()
         target_l = target_l.unsqueeze(dim=1).float().to(device).detach()
 
+        # UniMatch needs two streams of unlabeled data
         if algorithm.name == 'UniMatch':
             image_u, image_us, image_us2, target_u, _ = next(train_u_iter)    
             image_u = image_u.to(device).detach()
@@ -165,8 +154,6 @@ def main():
             algorithm.metric.reset()
             _t['iter time'].tic()
     
-        # save metrics
-
 
 if __name__ == '__main__':
     main()

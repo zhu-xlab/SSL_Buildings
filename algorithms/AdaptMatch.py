@@ -60,7 +60,7 @@ class AdaptMatch(nn.Module):
             self.probs_list_l = accumulate_probs_list(list_length, \
                 self.probs_list_l, prob_l.detach(), target_l, self.fore_idx, self.back_idx)
             self.probs_list_u = accumulate_probs_list(list_length*5, \
-                self.probs_list_u, prob_u.detach(), pseudo_labels, self.fore_idx, self.back_idx)
+                self.probs_list_u, prob_us.detach(), pseudo_labels, self.fore_idx, self.back_idx)
 
             # calculate thr: labeled & unlabeled
             if curr_iter > list_length:
